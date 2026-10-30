@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+pymongo[srv]
+pydantic[email]
+pydantic-settings
+python-multipart
+PyJWT
+bcrypt
+Django
+requests

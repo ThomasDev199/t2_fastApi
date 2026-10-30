@@ -1,0 +1,90 @@
+
+{% extends "store/base.html" %}
+
+{% block title %}Iniciar sesión | TechGear{% endblock %}
+
+{% block content %}
+
+<section class="auth-section">
+
+    <div class="auth-decoration">
+        <span class="auth-tag">BIENVENIDO A TECHGEAR</span>
+        <h1>La tecnología<br>comienza aquí.</h1>
+        <p>
+            Inicia sesión y descubre todo lo que tenemos
+            preparado para ti.
+        </p>
+
+        <div class="auth-feature">
+            <span>01</span>
+            <div>
+                <strong>Tu cuenta</strong>
+                <p>Accede a tus pedidos y compras.</p>
+            </div>
+        </div>
+
+        <div class="auth-feature">
+            <span>02</span>
+            <div>
+                <strong>Tu tecnología</strong>
+                <p>Explora nuestro catálogo de productos.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="auth-card">
+
+        <div class="auth-card-heading">
+            <span class="section-tag">TECHGEAR ACCOUNT</span>
+            <h2>Iniciar sesión</h2>
+            <p>Ingresa tus datos para continuar.</p>
+        </div>
+
+        <form method="POST" class="auth-form">
+            {% csrf_token %}
+
+            <div class="auth-field">
+                <label for="email">Correo electrónico</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="nombre@correo.com"
+                    value="{{ request.POST.email|default:'' }}"
+                    autocomplete="email"
+                    required
+                >
+            </div>
+
+            <div class="auth-field">
+                <label for="password">Contraseña</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Ingresa tu contraseña"
+                    autocomplete="current-password"
+                    required
+                >
+            </div>
+
+            <button type="submit" class="auth-submit">
+                Iniciar sesión
+                <span>→</span>
+            </button>
+        </form>
+
+        <div class="auth-switch">
+            ¿Todavía no tienes una cuenta?
+            <a href="{% url 'registro' %}">Crear cuenta</a>
+        </div>
+
+        <a href="{% url 'catalogo' %}" class="auth-back">
+            ← Volver al catálogo
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}

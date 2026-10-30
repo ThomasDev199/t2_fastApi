@@ -1,0 +1,269 @@
+
+{% extends "store/base.html" %}
+
+{% block title %}Dashboard Admin | TechGear{% endblock %}
+
+{% block content %}
+
+<section class="admin-dashboard">
+
+    <div class="admin-heading">
+        <div>
+            <span class="section-tag">TECHGEAR CONTROL CENTER</span>
+            <h1>Panel administrativo</h1>
+            <p>Administra el catálogo y controla tus productos.</p>
+        </div>
+
+        <div class="admin-status">
+            <span class="status-dot"></span>
+            Administrador
+        </div>
+    </div>
+
+    {% if error %}
+        <div class="alert-error">{{ error }}</div>
+    {% endif %}
+
+    <!-- ESTADÍSTICAS -->
+    <div class="admin-stats">
+
+        <article class="admin-stat-card">
+            <span class="stat-icon">▦</span>
+            <div>
+                <p>Total de productos</p>
+                <h2>{{ total_productos }}</h2>
+            </div>
+        </article>
+
+        <article class="admin-stat-card">
+            <span class="stat-icon">▤</span>
+            <div>
+                <p>Unidades en inventario</p>
+                <h2>{{ total_stock }}</h2>
+            </div>
+        </article>
+
+        <article class="admin-stat-card">
+            <span class="stat-icon">✓</span>
+            <div>
+                <p>Estado del sistema</p>
+                <h2 class="stat-online">Activo</h2>
+            </div>
+        </article>
+
+    </div>
+
+    <!-- FORMULARIO CREAR PRODUCTO -->
+    <div class="admin-panel">
+
+        <div class="admin-panel-heading">
+            <div>
+                <span class="section-tag">INVENTARIO</span>
+                <h2>Agregar producto</h2>
+                <p>Registra un nuevo producto en el catálogo.</p>
+            </div>
+        </div>
+
+        <form method="POST" class="admin-form">
+            {% csrf_token %}
+
+            <div class="admin-form-grid">
+
+                <div class="admin-field">
+                    <label for="nombre">Nombre del producto</label>
+                    <input
+                        type="text"
+                        id="nombre"
+                        name="nombre"
+                        minlength="2"
+                        maxlength="120"
+                        placeholder="Ej. Teclado mecánico"
+                        required
+                    >
+                </div>
+
+                <div class="admin-field">
+                    <label for="categoria">Categoría</label>
+                    <input
+                        type="text"
+                        id="categoria"
+                        name="categoria"
+                        placeholder="Ej. Accesorios"
+                    >
+                </div>
+
+                <div class="admin-field">
+                    <label for="precio">Precio</label>
+                    <input
+                        type="number"
+                        id="precio"
+                        name="precio"
+                        min="0.01"
+                        step="0.01"
+                        placeholder="150000"
+                        required
+                    >
+                </div>
+
+                <div class="admin-field">
+                    <label for="stock">Stock disponible</label>
+                    <input
+                        type="number"
+                        id="stock"
+                        name="stock"
+                        min="0"
+                        step="1"
+                        placeholder="20"
+                        required
+                    >
+                </div>
+
+                <div class="admin-field admin-field-full">
+                    <label for="imagen_url">URL de la imagen</label>
+                    <input
+                        type="url"
+                        id="imagen_url"
+                        name="imagen_url"
+                        placeholder="https://ejemplo.com/imagen.jpg"
+                    >
+                </div>
+
+                <div class="admin-field admin-field-full">
+                    <label for="descripcion">Descripción</label>
+                    <textarea
+                        id="descripcion"
+                        name="descripcion"
+                        rows="3"
+                        placeholder="Describe las características del producto..."
+                    ></textarea>
+                </div>
+
+            </div>
+
+            <button type="submit" class="admin-submit">
+                + Publicar producto
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- TABLA DE PRODUCTOS -->
+    <div class="admin-panel">
+
+        <div class="admin-panel-heading table-heading">
+            <div>
+                <span class="section-tag">GESTIÓN DE PRODUCTOS</span>
+                <h2>Productos registrados</h2>
+                <p>Consulta, modifica o elimina productos.</p>
+            </div>
+
+            <span class="product-count">
+                {{ productos|length }} registros
+            </span>
+        </div>
+
+        <div class="admin-table-wrapper">
+
+            <table class="admin-table">
+
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Categoría</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for producto in productos %}
+
+                    <tr>
+                        <td>
+                            <div class="table-product">
+                                {% if producto.imagen_url %}
+                                    <img
+                                        src="{{ producto.imagen_url }}"
+                                        alt="{{ producto.nombre }}"
+                                    >
+                                {% else %}
+                                    <div class="table-placeholder">TG</div>
+                                {% endif %}
+
+                                <div>
+                                    <strong>{{ producto.nombre }}</strong>
+                                    <small>ID: {{ producto.id }}</small>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td>{{ producto.categoria }}</td>
+
+                        <td class="table-price">
+                            ${{ producto.precio|floatformat:0 }}
+                        </td>
+
+                        <td>{{ producto.stock }}</td>
+
+                        <td>
+                            {% if producto.stock > 0 %}
+                                <span class="inventory-badge available">
+                                    Disponible
+                                </span>
+                            {% else %}
+                                <span class="inventory-badge unavailable">
+                                    Agotado
+                                </span>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            <div class="table-actions">
+
+                                <a
+                                    href="{% url 'editar_producto' producto.id %}"
+                                    class="action-edit"
+                                >
+                                    Editar
+                                </a>
+
+                                <form
+                                    method="POST"
+                                    action="{% url 'eliminar_producto' producto.id %}"
+                                    onsubmit="return confirm('¿Seguro que deseas eliminar este producto?');"
+                                >
+                                    {% csrf_token %}
+                                    <button type="submit" class="action-delete">
+                                        Eliminar
+                                    </button>
+                                </form>
+
+                            </div>
+                        </td>
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+                        <td colspan="6" class="table-empty">
+                            Todavía no hay productos registrados.
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,151 @@
+
+{% extends "store/base.html" %}
+
+{% block title %}Catálogo | TechGear{% endblock %}
+
+{% block content %}
+
+<section class="catalog-hero">
+    <div class="catalog-hero-content">
+        <span class="section-tag">TECHGEAR STORE</span>
+
+        <h1>
+            Tecnología que<br>
+            <span>impulsa tu mundo.</span>
+        </h1>
+
+        <p>
+            Descubre nuestro catálogo de productos tecnológicos
+            y encuentra lo que necesitas.
+        </p>
+    </div>
+</section>
+
+<section class="catalog-section">
+
+    <div class="catalog-heading">
+        <div>
+            <span class="section-tag">NUESTRO CATÁLOGO</span>
+            <h2>Explora nuestros productos</h2>
+        </div>
+
+        <span class="product-count">
+            {{ productos|length }} productos
+        </span>
+    </div>
+
+    {% if error %}
+        <div class="alert-error">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    {% if productos %}
+
+        <div class="product-grid">
+
+            {% for producto in productos %}
+
+                <article class="product-card">
+
+                    <div class="product-image">
+
+                        {% if producto.imagen_url %}
+                            <img
+                                src="{{ producto.imagen_url }}"
+                                alt="{{ producto.nombre }}"
+                                loading="lazy"
+                            >
+                        {% else %}
+                            <div class="product-placeholder">
+                                <span>TECHGEAR</span>
+                            </div>
+                        {% endif %}
+
+                        <span class="product-category">
+                            {{ producto.categoria|default:"General" }}
+                        </span>
+
+                    </div>
+
+                    <div class="product-info">
+
+                        <h3>{{ producto.nombre }}</h3>
+
+                        <p class="product-description">
+                            {{ producto.descripcion|default:"Producto tecnológico de calidad." }}
+                        </p>
+
+                        <div class="product-details">
+                            <span class="product-price">
+                                ${{ producto.precio|floatformat:0 }}
+                            </span>
+
+                            {% if producto.stock > 0 %}
+                                <span class="stock-available">
+                                    Disponible
+                                </span>
+                            {% else %}
+                                <span class="stock-empty">
+                                    Agotado
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        {% if request.session.token %}
+
+                            {% if producto.stock > 0 %}
+                                <form
+                                    method="POST"
+                                    action="{% url 'pedir' producto.id %}"
+                                >
+                                    {% csrf_token %}
+
+                                    <input
+                                        type="number"
+                                        name="cantidad"
+                                        value="1"
+                                        min="1"
+                                        max="{{ producto.stock }}"
+                                        class="quantity-input"
+                                        aria-label="Cantidad"
+                                    >
+
+                                    <button type="submit" class="btn-product">
+                                        Agregar al pedido
+                                    </button>
+                                </form>
+                            {% else %}
+                                <button class="btn-product disabled" disabled>
+                                    Sin existencias
+                                </button>
+                            {% endif %}
+
+                        {% else %}
+
+                            <a href="{% url 'login' %}" class="btn-product">
+                                Inicia sesión para comprar
+                            </a>
+
+                        {% endif %}
+
+                    </div>
+
+                </article>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="empty-catalog">
+            <h3>No hay productos disponibles</h3>
+            <p>Pronto agregaremos nuevos productos a nuestra tienda.</p>
+        </div>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

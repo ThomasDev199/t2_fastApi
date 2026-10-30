@@ -1,0 +1,120 @@
+
+{% extends "store/base.html" %}
+
+{% block title %}Crear cuenta | TechGear{% endblock %}
+
+{% block content %}
+
+<section class="auth-section">
+
+    <div class="auth-decoration">
+        <span class="auth-tag">ÚNETE A TECHGEAR</span>
+        <h1>Tu próxima<br>experiencia comienza aquí.</h1>
+        <p>
+            Crea tu cuenta para explorar productos,
+            realizar pedidos y disfrutar de TechGear.
+        </p>
+
+        <div class="auth-feature">
+            <span>01</span>
+            <div>
+                <strong>Registro sencillo</strong>
+                <p>Crea tu cuenta en pocos pasos.</p>
+            </div>
+        </div>
+
+        <div class="auth-feature">
+            <span>02</span>
+            <div>
+                <strong>Todo en un lugar</strong>
+                <p>Consulta tus pedidos cuando quieras.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="auth-card">
+
+        <div class="auth-card-heading">
+            <span class="section-tag">TECHGEAR ACCOUNT</span>
+            <h2>Crear cuenta</h2>
+            <p>Completa tus datos para registrarte.</p>
+        </div>
+
+        <form method="POST" class="auth-form" id="registerForm">
+            {% csrf_token %}
+
+            <div class="auth-field">
+                <label for="nombre">Nombre completo</label>
+                <input
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    placeholder="Tu nombre"
+                    value="{{ request.POST.nombre|default:'' }}"
+                    minlength="2"
+                    maxlength="100"
+                    autocomplete="name"
+                    required
+                >
+            </div>
+
+            <div class="auth-field">
+                <label for="email">Correo electrónico</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="nombre@correo.com"
+                    value="{{ request.POST.email|default:'' }}"
+                    autocomplete="email"
+                    required
+                >
+            </div>
+
+            <div class="auth-field">
+                <label for="password">Contraseña</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Mínimo 8 caracteres"
+                    minlength="8"
+                    autocomplete="new-password"
+                    required
+                >
+            </div>
+
+            <div class="auth-field">
+                <label for="confirm_password">Confirmar contraseña</label>
+                <input
+                    type="password"
+                    id="confirm_password"
+                    name="confirm_password"
+                    placeholder="Repite tu contraseña"
+                    minlength="8"
+                    autocomplete="new-password"
+                    required
+                >
+                <small id="passwordFeedback" class="password-feedback"></small>
+            </div>
+
+            <button type="submit" class="auth-submit">
+                Crear mi cuenta
+                <span>→</span>
+            </button>
+        </form>
+
+        <div class="auth-switch">
+            ¿Ya tienes una cuenta?
+            <a href="{% url 'login' %}">Iniciar sesión</a>
+        </div>
+
+        <a href="{% url 'catalogo' %}" class="auth-back">
+            ← Volver al catálogo
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}
