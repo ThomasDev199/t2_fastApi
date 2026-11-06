@@ -1,0 +1,738 @@
+
+/* =========================================================
+   TECHGEAR — ORDERS EXPERIENCE
+   Diseño premium | Tech Store | Responsive
+========================================================= */
+
+.orders-page {
+    --primary: #2563eb;
+    --primary-dark: #1746a2;
+    --primary-light: #eaf1ff;
+    --accent: #38bdf8;
+
+    --dark: #101827;
+    --dark-soft: #1e293b;
+    --text: #273449;
+    --muted: #718096;
+
+    --background: #f4f6fa;
+    --surface: #ffffff;
+    --border: #e7ebf2;
+
+    --success: #16a36a;
+    --warning: #d99118;
+    --info: #0284c7;
+
+    width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 35px 24px 80px;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+}
+
+/* =========================================================
+   ENCABEZADO PRINCIPAL
+========================================================= */
+
+.orders-page > div:first-child {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: 48px 45px;
+    margin-bottom: 42px !important;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 24px;
+    background:
+        radial-gradient(circle at 85% 15%, rgba(56,189,248,.23), transparent 28%),
+        radial-gradient(circle at 100% 100%, rgba(37,99,235,.35), transparent 40%),
+        linear-gradient(120deg, #101827 0%, #172b4d 60%, #123c75 100%);
+    box-shadow: 0 18px 45px rgba(15, 35, 70, .15);
+}
+
+.orders-page > div:first-child::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    width: 280px;
+    height: 280px;
+    top: -145px;
+    right: 10%;
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 50%;
+    box-shadow:
+        0 0 0 35px rgba(255,255,255,.025),
+        0 0 0 70px rgba(255,255,255,.02);
+}
+
+.orders-page .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    color: #7dd3fc;
+    font-size: .75rem;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+}
+
+.orders-page .eyebrow::before {
+    content: "";
+    width: 27px;
+    height: 3px;
+    border-radius: 10px;
+    background: #38bdf8;
+}
+
+.orders-page .page-title {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 12px;
+    color: #ffffff;
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    font-weight: 850;
+    letter-spacing: -1.8px;
+    line-height: 1.1;
+}
+
+.orders-page p.text-secondary {
+    position: relative;
+    z-index: 1;
+    max-width: 650px;
+    color: #cbd5e1 !important;
+    font-size: .98rem;
+    line-height: 1.8;
+}
+
+/* =========================================================
+   TÍTULOS Y SECCIONES
+========================================================= */
+
+.orders-page h2,
+.orders-page h3 {
+    color: var(--dark);
+    font-weight: 800;
+    letter-spacing: -.6px;
+}
+
+.orders-page h2.h4 {
+    font-size: 1.3rem;
+}
+
+.orders-page h2.h3 {
+    font-size: 1.8rem;
+}
+
+.orders-page h3.h5 {
+    font-size: 1.05rem;
+}
+
+.orders-page section {
+    margin-bottom: 35px;
+    scroll-margin-top: 30px;
+}
+
+.orders-page section > h2 {
+    margin-bottom: 22px;
+}
+
+/* =========================================================
+   TARJETAS
+========================================================= */
+
+.orders-page .order-card {
+    overflow: hidden;
+    border: 1px solid var(--border) !important;
+    border-radius: 20px !important;
+    background: var(--surface);
+    box-shadow: 0 5px 22px rgba(16, 24, 39, .045) !important;
+    transition:
+        transform .28s ease,
+        box-shadow .28s ease,
+        border-color .28s ease;
+}
+
+.orders-page .order-card:hover {
+    transform: translateY(-4px);
+    border-color: #c8d8f8 !important;
+    box-shadow: 0 16px 38px rgba(30, 64, 120, .10) !important;
+}
+
+.orders-page .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 19px 23px !important;
+    border-bottom: 1px solid #edf0f5;
+    background: #fafbfe;
+}
+
+.orders-page .card-header strong,
+.orders-page .card-header .fw-semibold {
+    color: var(--dark);
+    font-size: .95rem;
+}
+
+.orders-page .card-body {
+    padding: 24px !important;
+}
+
+.orders-page .card-footer {
+    padding: 18px 23px !important;
+    border-top: 1px solid #edf0f5 !important;
+    background: #fbfcfe !important;
+}
+
+/* =========================================================
+   PRODUCTOS DEL PEDIDO
+========================================================= */
+
+.orders-page .order-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+    padding: 19px 23px !important;
+    border-bottom: 1px solid #edf0f5;
+    transition: background .2s ease;
+}
+
+.orders-page .order-item:last-child {
+    border-bottom: none;
+}
+
+.orders-page .order-item:hover {
+    background: #f7f9fd;
+}
+
+.orders-page .order-item .fw-semibold,
+.orders-page .order-item strong {
+    color: var(--dark);
+    font-weight: 750;
+}
+
+.orders-page .order-item .text-secondary {
+    color: var(--muted) !important;
+    font-size: .85rem;
+}
+
+/* =========================================================
+   RESUMEN DE VALORES
+========================================================= */
+
+.orders-page .order-summary {
+    padding: 17px 20px;
+    border: 1px solid #d5e4ff;
+    border-radius: 15px;
+    background: linear-gradient(110deg, #eff5ff, #f7faff);
+}
+
+.orders-page .order-summary strong {
+    color: var(--primary-dark);
+    font-size: 1.05rem;
+    font-weight: 850;
+}
+
+/* =========================================================
+   CHECKBOXES
+========================================================= */
+
+.orders-page .form-check {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 22px;
+    cursor: pointer;
+}
+
+.orders-page .form-check-input {
+    flex-shrink: 0;
+    width: 19px;
+    height: 19px;
+    margin-top: 0;
+    border: 1.5px solid #c4cedd;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: none !important;
+    transition: all .2s ease;
+}
+
+.orders-page .form-check-input:checked {
+    border-color: var(--primary);
+    background-color: var(--primary);
+}
+
+.orders-page .form-check-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(37,99,235,.13) !important;
+}
+
+/* =========================================================
+   ESTADOS DE PEDIDOS
+========================================================= */
+
+.orders-page .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 12px;
+    border-radius: 30px;
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .25px;
+}
+
+.orders-page .text-bg-warning {
+    color: #98620b !important;
+    background: #fff3d5 !important;
+}
+
+.orders-page .text-bg-info {
+    color: #0369a1 !important;
+    background: #e0f2fe !important;
+}
+
+.orders-page .text-bg-success {
+    color: #087443 !important;
+    background: #dcfce9 !important;
+}
+
+/* =========================================================
+   BOTONES
+========================================================= */
+
+.orders-page .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 42px;
+    padding: 10px 17px;
+    border-radius: 10px;
+    font-size: .88rem;
+    font-weight: 750;
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        background .2s ease,
+        border-color .2s ease;
+}
+
+.orders-page .btn-primary {
+    border-color: var(--primary);
+    background: var(--primary);
+    box-shadow: 0 5px 13px rgba(37,99,235,.16);
+}
+
+.orders-page .btn-primary:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary-dark);
+    background: var(--primary-dark);
+    box-shadow: 0 9px 20px rgba(37,99,235,.23);
+}
+
+.orders-page .btn-success {
+    border-color: var(--success);
+    background: var(--success);
+    box-shadow: 0 5px 13px rgba(22,163,106,.15);
+}
+
+.orders-page .btn-success:hover {
+    transform: translateY(-2px);
+    border-color: #108453;
+    background: #108453;
+    box-shadow: 0 9px 20px rgba(22,163,106,.22);
+}
+
+.orders-page .btn-outline-success {
+    border: 1px solid #b9e8d1;
+    color: #087443;
+    background: #f1fbf5;
+}
+
+.orders-page .btn-outline-success:hover {
+    transform: translateY(-2px);
+    border-color: var(--success);
+    color: #ffffff;
+    background: var(--success);
+}
+
+.orders-page .btn:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* =========================================================
+   CHECKOUT
+========================================================= */
+
+.orders-page #checkout {
+    position: relative;
+    overflow: hidden;
+    margin-top: 32px !important;
+    border: 1px solid #dce6f7 !important;
+    border-radius: 23px !important;
+    background: #ffffff;
+    box-shadow: 0 15px 40px rgba(20, 48, 91, .07) !important;
+    animation: ordersAppear .35s ease both;
+}
+
+.orders-page #checkout::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #1746a2, #2563eb, #38bdf8);
+}
+
+.orders-page #checkout[hidden],
+.orders-page [hidden] {
+    display: none !important;
+}
+
+.orders-page #checkout .card-body {
+    padding: 34px !important;
+}
+
+.orders-page #checkout .border-bottom {
+    padding-bottom: 20px;
+    border-color: #e9edf4 !important;
+}
+
+.orders-page #checkout h2 {
+    margin-top: 3px;
+    font-size: 1.55rem;
+}
+
+.orders-page #total-seleccionado {
+    color: var(--primary);
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: -.8px;
+}
+
+/* =========================================================
+   FORMULARIOS
+========================================================= */
+
+.orders-page .form-label {
+    display: block;
+    margin-bottom: 9px;
+    color: #344258;
+    font-size: .86rem;
+    font-weight: 750;
+}
+
+.orders-page .form-control,
+.orders-page .form-select {
+    min-height: 49px;
+    padding: 12px 15px;
+    border: 1px solid #dce2ec;
+    border-radius: 11px;
+    color: var(--dark);
+    background-color: #ffffff;
+    font-size: .91rem;
+    box-shadow: none;
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+}
+
+.orders-page .form-control::placeholder {
+    color: #a0aaba;
+}
+
+.orders-page .form-control:hover,
+.orders-page .form-select:hover {
+    border-color: #a8bfe9;
+}
+
+.orders-page .form-control:focus,
+.orders-page .form-select:focus {
+    border-color: var(--primary);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(37,99,235,.10);
+}
+
+.orders-page .form-control:disabled {
+    color: #8b95a5;
+    background: #f2f4f8;
+    cursor: not-allowed;
+}
+
+.orders-page .form-text {
+    margin-top: 7px;
+    color: var(--muted);
+    font-size: .78rem;
+}
+
+/* =========================================================
+   MÉTODOS DE PAGO
+========================================================= */
+
+.orders-page #datos-tarjeta,
+.orders-page #datos-nequi,
+.orders-page #datos-transferencia {
+    padding: 23px;
+    border: 1px solid #dce7fa;
+    border-radius: 16px;
+    background:
+        radial-gradient(circle at 100% 0%, rgba(37,99,235,.055), transparent 35%),
+        #f8faff;
+    animation: ordersAppear .25s ease both;
+}
+
+.orders-page #datos-tarjeta::before,
+.orders-page #datos-nequi::before,
+.orders-page #datos-transferencia::before {
+    display: block;
+    margin-bottom: 18px;
+    color: var(--primary-dark);
+    font-size: .76rem;
+    font-weight: 850;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+}
+
+.orders-page #datos-tarjeta::before {
+    content: "Datos de tarjeta de demostración";
+}
+
+.orders-page #datos-nequi::before {
+    content: "Datos Nequi de demostración";
+}
+
+.orders-page #datos-transferencia::before {
+    content: "Datos de transferencia de demostración";
+}
+
+/* =========================================================
+   AVISO DE PAGO
+========================================================= */
+
+.orders-page .alert-info {
+    padding: 17px 20px;
+    border: 1px solid #b9e2fa;
+    border-radius: 13px;
+    color: #075985;
+    background: #eff9ff;
+    font-size: .87rem;
+    line-height: 1.7;
+}
+
+/* =========================================================
+   CONFIRMAR PAGO
+========================================================= */
+
+.orders-page #pagar-seleccionados {
+    min-height: 55px;
+    margin-top: 7px;
+    border-radius: 12px;
+    font-size: .96rem;
+    font-weight: 800;
+    letter-spacing: .2px;
+}
+
+.orders-page #pagar-seleccionados:not(:disabled):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 11px 25px rgba(22,163,106,.23);
+}
+
+/* =========================================================
+   ALERTAS GENERALES
+========================================================= */
+
+.orders-page .alert {
+    padding: 17px 20px;
+    border-radius: 14px;
+    font-size: .9rem;
+    line-height: 1.65;
+}
+
+.orders-page .alert-warning {
+    border: 1px solid #f5dfa5;
+    color: #8c5b0b;
+    background: #fff9e9;
+}
+
+.orders-page .alert-light {
+    border-color: var(--border) !important;
+    color: var(--muted);
+    background: #ffffff !important;
+}
+
+/* =========================================================
+   ANIMACIONES
+========================================================= */
+
+@keyframes ordersAppear {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================================================
+   TABLETS
+========================================================= */
+
+@media (max-width: 768px) {
+    .orders-page {
+        padding: 25px 17px 55px;
+    }
+
+    .orders-page > div:first-child {
+        padding: 36px 28px;
+        margin-bottom: 30px !important;
+        border-radius: 20px;
+    }
+
+    .orders-page .page-title {
+        font-size: 2.3rem;
+    }
+
+    .orders-page #checkout .card-body {
+        padding: 25px !important;
+    }
+
+    .orders-page .card-header,
+    .orders-page .card-footer {
+        padding: 16px 18px !important;
+    }
+
+    .orders-page .order-item {
+        padding: 16px 18px !important;
+    }
+}
+
+/* =========================================================
+   CELULARES
+========================================================= */
+
+@media (max-width: 480px) {
+    .orders-page {
+        padding: 18px 12px 42px;
+    }
+
+    .orders-page > div:first-child {
+        padding: 29px 21px;
+        margin-bottom: 26px !important;
+        border-radius: 17px;
+    }
+
+    .orders-page .page-title {
+        font-size: 1.9rem;
+        letter-spacing: -1.1px;
+    }
+
+    .orders-page .eyebrow {
+        font-size: .68rem;
+        letter-spacing: 1.8px;
+    }
+
+    .orders-page h2.h3 {
+        font-size: 1.45rem;
+    }
+
+    .orders-page h2.h4 {
+        font-size: 1.15rem;
+    }
+
+    .orders-page .order-card {
+        border-radius: 15px !important;
+    }
+
+    .orders-page .card-header {
+        align-items: flex-start !important;
+        flex-wrap: wrap;
+        padding: 15px !important;
+    }
+
+    .orders-page .card-body {
+        padding: 16px !important;
+    }
+
+    .orders-page .card-footer {
+        padding: 14px !important;
+    }
+
+    .orders-page .order-item {
+        gap: 10px !important;
+        padding: 14px 12px !important;
+        font-size: .84rem;
+    }
+
+    .orders-page .badge {
+        padding: 6px 9px;
+        font-size: .66rem;
+    }
+
+    .orders-page #checkout .card-body {
+        padding: 19px !important;
+    }
+
+    .orders-page #checkout .border-bottom {
+        gap: 15px;
+    }
+
+    .orders-page #checkout .text-end {
+        text-align: left !important;
+    }
+
+    .orders-page #total-seleccionado {
+        font-size: 1.55rem !important;
+    }
+
+    .orders-page #datos-tarjeta,
+    .orders-page #datos-nequi,
+    .orders-page #datos-transferencia {
+        padding: 16px;
+    }
+
+    .orders-page .btn-lg {
+        width: 100%;
+        font-size: .9rem;
+    }
+
+    .orders-page .card-footer.d-flex {
+        align-items: stretch !important;
+        flex-direction: column;
+    }
+
+    .orders-page .card-footer form {
+        width: 100%;
+    }
+
+    .orders-page .card-footer form .btn {
+        width: 100%;
+    }
+
+    .orders-page section {
+        margin-bottom: 27px;
+    }
+}
+
+/* =========================================================
+   ACCESIBILIDAD
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    .orders-page *,
+    .orders-page *::before,
+    .orders-page *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+}

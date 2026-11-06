@@ -90,23 +90,48 @@ def logout_view(request):
     return redirect("catalogo")
 
 
+
 @login_required
 @require_POST
 def pedir(request, producto_id):
+
     try:
-        cantidad = max(1, int(request.POST.get("cantidad", 1)))
+        cantidad = int(request.POST.get("cantidad", 1))
+
+        if cantidad < 1:
+            messages.error(
+                request,
+                "La cantidad debe ser como mínimo 1."
+            )
+            return redirect("catalogo")
+
         api_client.crear_pedido(
-            request.session["token"], [{"producto_id": producto_id, "cantidad": cantidad}]
+            request.session["token"],
+            [
+                {
+                    "producto_id": producto_id,
+                    "cantidad": cantidad
+                }
+            ]
         )
+
     except ValueError:
-        messages.error(request, "Cantidad inválida.")
+        messages.error(request, "Ingresa una cantidad válida.")
+
     except APIError as e:
+
         if e.status == 401:
             return _sesion_expirada(request)
+
         messages.error(request, str(e))
+
     else:
-        messages.success(request, "¡Pedido realizado!")
+        messages.success(
+            request,
+            "¡Producto agregado a tus pedidos correctamente!"
+        )
         return redirect("pedidos")
+
     return redirect("catalogo")
 
 
@@ -357,3 +382,4 @@ def eliminar_producto(request, producto_id):
         messages.success(request, "Producto eliminado correctamente.")
 
     return redirect("panel_admin")
+

@@ -1,14 +1,37 @@
 {% extends "store/base.html" %}
 {% block title %}Pedidos{% endblock %}
+
 {% block content %}
-<div class="mb-4">
-  <div class="eyebrow">Tu cuenta</div>
-  <h1 class="page-title mb-2">{% if request.session.usuario.rol == "admin" %}Gestión de pedidos{% else %}Tus pedidos{% endif %}</h1>
-  <p class="text-secondary mb-0">
-    {% if request.session.usuario.rol == "admin" %}Revisa pagos y actualiza el estado de los envíos.{% else %}Revisa tus compras, completa el pago y consulta el estado de entrega.{% endif %}
-  </p>
-</div>
-{% if error %}<div class="alert alert-warning">{{ error }}</div>{% endif %}
+
+<div class="orders-page">
+
+    <div class="orders-header mb-4">
+        <div>
+            <div class="eyebrow orders-eyebrow">Tu cuenta</div>
+
+            <h1 class="page-title orders-title mb-2">
+                {% if request.session.usuario.rol == "admin" %}
+                    Gestión de pedidos
+                {% else %}
+                    Tus pedidos
+                {% endif %}
+            </h1>
+
+            <p class="text-secondary orders-description mb-0">
+                {% if request.session.usuario.rol == "admin" %}
+                    Revisa pagos y actualiza el estado de los envíos.
+                {% else %}
+                    Revisa tus compras, completa el pago y consulta el estado de entrega.
+                {% endif %}
+            </p>
+        </div>
+
+        <div class="orders-header-icon">📦</div>
+    </div>
+
+    {% if error %}
+        <div class="alert alert-warning orders-alert">{{ error }}</div>
+    {% endif %}
 
 {% if request.session.usuario.rol == "cliente" %}
   {% if pedidos_pendientes %}

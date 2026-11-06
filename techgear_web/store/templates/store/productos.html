@@ -1,0 +1,155 @@
+
+{% extends "store/base.html" %}
+
+{% block title %}Productos | TechGear{% endblock %}
+
+{% block content %}
+
+<section class="catalog-page">
+
+    <div class="catalog-hero">
+        <span class="section-tag">TECHGEAR STORE</span>
+        <h1>Explora nuestros productos</h1>
+        <p>
+            Encuentra la tecnología que necesitas.
+            Calidad, innovación y rendimiento en un solo lugar.
+        </p>
+    </div>
+
+    <div class="catalog-heading">
+        <div>
+            <h2>Nuestro catálogo</h2>
+            <p>Descubre todos los productos disponibles.</p>
+        </div>
+
+        <span class="catalog-counter">
+            {{ productos|length }} productos
+        </span>
+    </div>
+
+    <div class="products-grid">
+
+        {% for producto in productos %}
+
+        <article class="product-card">
+
+            <div class="product-image">
+
+                {% if producto.imagen_url %}
+                    <img
+                        src="{{ producto.imagen_url }}"
+                        alt="{{ producto.nombre }}"
+                        loading="lazy"
+                    >
+                {% else %}
+                    <div class="product-no-image">
+                        <span>TECHGEAR</span>
+                        <strong>Sin imagen</strong>
+                    </div>
+                {% endif %}
+
+                {% if producto.stock > 0 %}
+                    <span class="product-status available">
+                        Disponible
+                    </span>
+                {% else %}
+                    <span class="product-status unavailable">
+                        Agotado
+                    </span>
+                {% endif %}
+
+            </div>
+
+            <div class="product-info">
+
+                <span class="product-category">
+                    {{ producto.categoria|default:"Tecnología" }}
+                </span>
+
+                <h3>{{ producto.nombre }}</h3>
+
+                <p class="product-description">
+                    {{ producto.descripcion|default:"Producto disponible en TechGear." }}
+                </p>
+
+                <div class="product-bottom">
+
+                    <div>
+                        <span class="price-label">Precio</span>
+                        <strong class="product-price">
+                            ${{ producto.precio|floatformat:0 }}
+                        </strong>
+                    </div>
+
+                    <span class="product-stock">
+                        {{ producto.stock }} unidades disponibles
+                    </span>
+
+                </div>
+
+                <!-- FORMULARIO DE PEDIDO -->
+
+                {% if producto.stock > 0 %}
+
+                <form
+                    method="POST"
+                    action="{% url 'pedir' producto.id %}"
+                    class="product-order-form"
+                >
+
+                    {% csrf_token %}
+
+                    <label for="cantidad-{{ producto.id }}">
+                        Selecciona la cantidad
+                    </label>
+
+                    <input
+                        type="number"
+                        id="cantidad-{{ producto.id }}"
+                        name="cantidad"
+                        value="1"
+                        min="1"
+                        max="{{ producto.stock }}"
+                        required
+                    >
+
+                    <button type="submit" class="product-order-button">
+                        <span>🛒</span>
+                        Agregar a mis pedidos
+                    </button>
+
+                </form>
+
+                {% else %}
+
+                <button
+                    class="product-order-button disabled"
+                    disabled
+                >
+                    Producto agotado
+                </button>
+
+                {% endif %}
+
+            </div>
+
+        </article>
+
+        {% empty %}
+
+        <div class="catalog-empty">
+            <div class="empty-icon">▦</div>
+            <h3>¡Próximamente!</h3>
+            <p>
+                Todavía no tenemos productos registrados.
+                Vuelve pronto para descubrir nuestro catálogo.
+            </p>
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}
