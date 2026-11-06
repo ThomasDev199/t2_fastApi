@@ -29,6 +29,7 @@ ALLOWED_HOSTS = [
     "t2-fastapi-2.onrender.com",
     "localhost",
     "127.0.0.1",
+    ".vercel.app"
 ]
 
 
