@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-9ioa@twt$^t*q^pw72)99uadc8h37a&yp3n)%uz(-sbryl!d3y
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "fastapi-t2.onrender.com",
+    "t2-fastapi-2.onrender.com",
     "localhost",
     "127.0.0.1",
 ]
