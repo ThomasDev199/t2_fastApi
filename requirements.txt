@@ -1,1 +1,1 @@
-﻿-r techgear_web/requirements.txt
+-r techgear_web/requirements.txt
